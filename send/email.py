@@ -14,7 +14,7 @@ class ConsumerNotification:
             session = smtplib.SMTP(os.environ.get("EMAIL_HOST"), os.environ.get("EMAIL_PORT"))
             session.starttls()
             session.login(os.environ.get("EMAIL_HOST_USER"), os.environ.get("EMAIL_HOST_PASSWORD"))
-            session.send_message(message, to_email, from_email)
+            session.send_message(msg=message,from_addr=from_email,to_addrs=to_email)
             session.quit()
             print(f"Mail Sent to: {to_email}")
         except Exception as err:
