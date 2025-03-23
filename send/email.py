@@ -11,7 +11,7 @@ class ConsumerNotification:
         """Utility method to send emails using Python mail API."""
         try:
             # initiate smtp session
-            session = smtplib.SMTP(os.environ.get("EMAIL_HOST"))
+            session = smtplib.SMTP(os.environ.get("EMAIL_HOST"), os.environ.get("EMAIL_PORT"))
             session.starttls()
             session.login(os.environ.get("EMAIL_HOST_USER"), os.environ.get("EMAIL_HOST_PASSWORD"))
             session.send_message(message, to_email, from_email)
