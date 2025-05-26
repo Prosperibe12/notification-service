@@ -11,8 +11,8 @@ def main():
     # channel = connection.channel()
     
     parameters = pika.ConnectionParameters(
-        host="rabbitmq",  
-        port=5672,  
+        host=os.environ.get("RABBITMQ_HOST"), 
+        port=int(os.environ.get("RABBITMQ_PORT")), 
         credentials=pika.PlainCredentials("guest", "guest"),
         heartbeat=30,
         blocked_connection_timeout=300,
