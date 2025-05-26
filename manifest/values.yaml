@@ -1,0 +1,62 @@
+# Configuration Values for the email service Helm chart
+
+projectNameOverride: notification
+
+# Common labels for deployment
+commonLabels:
+  app: notification
+  tier: backend
+
+# Selector labels for the deployment
+selectorLabels:
+  app: notificationapi 
+
+# Replica count for the deployment
+replicaCount: 3
+
+# Strategy for the deployment
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+# Image configuration
+image:
+  name: notificationapp
+  repository: prosperibe12/notification-service
+  tag: latest
+  pullPolicy: Always
+
+# Resources for the deployment
+resources: {}
+#   limits:
+#     cpu: "400m"
+#     memory: "512Mi"
+#   requests:
+#     cpu: "200m"
+
+# ConfigMap configuration
+config:
+  VIDEO_QUEUE: "videos"
+  MP3_QUEUE: "mp3"
+  RABBITMQ_HOST: "rabbitmq-svc"
+  RABBITMQ_PORT: "5672" 
+  EMAIL_HOST: "smtp.gmail.com"
+  EMAIL_PORT: 587 
+  EMAIL_HOST_USER: "victor.chukwudi010@gmail.com"
+  EMAIL_HOST_PASSWORD: "qgum rjzu lmwo ffrc"
+
+# Service configuration
+service:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+
+# Auto-scaling configuration
+autoscaling:
+  minReplicas: 3
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
